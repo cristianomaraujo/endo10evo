@@ -7,6 +7,8 @@ SENHA_OPEN_AI = os.getenv("SENHA_OPEN_AI")
 
 openai.api_key = SENHA_OPEN_AI
 
+# Nome do modelo fine-tuned
+fine_tuned_model = "ft:gpt-3.5-turbo-1106:personal::9w82zLta"
 
 # URL da imagem do logo no repositório do GitHub
 logo_url = "https://github.com/cristianomaraujo/endo10evo/blob/main/Eng.jpg?raw=true"
@@ -104,7 +106,7 @@ if 'hst_conversa' not in st.session_state:
 if text_input_center:
     st.session_state.hst_conversa.append({"role": "user", "content": text_input_center})
     retorno_openai = openai.ChatCompletion.create(
-        model="gpt-4o",
+        model=fine_tuned_model,  # Usando o modelo fine-tuned
         messages=st.session_state.hst_conversa,
         max_tokens=1024,
         n=1
@@ -114,4 +116,5 @@ if text_input_center:
 # RENDERIZAÇÃO DA CONVERSA
 if len(st.session_state.hst_conversa) > 1:
     render_chat(st.session_state.hst_conversa)
+
 
